@@ -22,8 +22,9 @@ def rgb(r, g, b):
     r_1, r_2 = r // 16, r % 16
     g_1, g_2 = g // 16, g % 16
     b_1, b_2 = b // 16, b % 16
+    color_list = [hexa_dict[r_1], hexa_dict[r_2], hexa_dict[g_1], hexa_dict[g_2], hexa_dict[b_1], hexa_dict[b_2]]
     
-    return "{}{}{}{}{}{}".format(hexa_dict[r_1],hexa_dict[r_2],hexa_dict[g_1],hexa_dict[g_2],hexa_dict[b_1], hexa_dict[b_2])
+    return "{}{}{}{}{}{}".format(*color_list)
 
 
 
@@ -34,4 +35,4 @@ for key, value in test_cases.items():
     if rgb(x,y,z) == value:
         print(f'rgb{key} = {value} -> OK!')
     else:
-        print(f'rgb{key} = {value} -> NOT OK!')
+        print(f'rgb{key} != {value} -> NOT OK!')
