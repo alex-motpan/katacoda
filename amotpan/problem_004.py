@@ -13,24 +13,40 @@
 
 
 def f(n):
-    result, count, temp = 0, 0, 0
-    even_nums = '02468'
-    prime_number_list = []
+    lenght_num = len(str(n))
+    
+    def is_prime(n):
+        if n == 2:
+            return False
+        return True if ((2  << (n - 2)) - n) % n == 1 else False
 
-    for num in range(int(n/1.5),n):
-        if num % 2 != 0 and pow(2, num-1, num) == 1 and len(str(num)) >= len(str(n)) - 1:
-            prime_number_list.append(num)
-            
-    for prime_number in prime_number_list:
-        if len(str(prime_number)) >= len(str(n))-1:
-            for number in str(prime_number):
-                if number in even_nums:
-                    temp += 1
-            if temp >= count:
-                count = temp
-                result = prime_number
-            temp = 0
-    return result
+
+    def count_even(n):
+        count = 0
+        while n >= 10:
+            if n % 10 % 2 == 0:
+                n //= 10
+                count += 1
+                if n <= 10 and n % 2 == 0:
+                    count += 1
+                    n = 0
+                    return count
+            else:
+                n //= 10
+        return count
+    
+    even_count, prime_count = 0, 0
+    
+    while len(str(n)) >= lenght_num - 1:
+        n -= 1
+        if n % 2 != 0 and is_prime(n):
+            even = count_even(n)
+            if even > even_count:
+                even_count = even
+                prime_count = n
+
+    return prime_count
+
 
 print("f(1000) ---> 887", f(1000))
 print("f(1210) ---> 1201", f(1210))
